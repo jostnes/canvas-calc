@@ -17,18 +17,14 @@ step.When(/^I divide "(.*)" by "(.*)"$/, (firstNumber, secondNumber) => {
   calculator.divide(firstNumber, secondNumber)
 })
 
-step.When(/^I key in number "(.*)"$/, (number) => {
-  calculator.pressButton(number)
+step.When(/^I click on (button|number) "(.*)"$/, (_valueType, value) => {
+  calculator.pressButton(value)
 })
 
-step.Then(/^Calculator should return "(.*)"$/, (expectedValue) => {
-  expect(calculator.checkAgainstBaseline()).to.equal(0)
-})
-
-step.Then(/^I click on "(.*)" button$/, (button) => {
-  calculator.pressButton(button)
+step.Then(/^Calculator should return "(.*)"$/, (result) => {
+  expect(calculator.checkAgainstBaseline(result), 'Calculator did not return correct result!').to.equal(0)
 })
 
 step.Then(/^Calculator should be cleared$/, () => {
-  expect(calculator.checkAgainstBaseline()).to.equal(0)
+  expect(calculator.checkAgainstBaseline(), 'Calculator not cleared!').to.equal(0)
 })

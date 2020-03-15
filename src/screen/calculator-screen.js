@@ -14,14 +14,14 @@ class Calculator {
 
   saveScreen() {
     const methodOptions = {
-      actualFolder: path.join(process.cwd(), './testActual')
+      actualFolder: path.join(process.cwd(), '.tmp/actual')
     }
 
     return browser.saveScreen('canvas', { methodOptions })
   }
 
   subtract(firstNumber, secondNumber) {
-    store.expectedResult = secondNumber - firstNumber
+    store.calculatedResult = secondNumber - firstNumber
     store.canvas = this.switchToCanvas()
 
     browser.keys(secondNumber)
@@ -33,7 +33,7 @@ class Calculator {
   }
 
   divide(firstNumber, secondNumber) {
-    store.expectedResult = firstNumber / secondNumber
+    store.calculatedResult = firstNumber / secondNumber
     store.canvas = this.switchToCanvas()
 
     browser.keys(firstNumber)
@@ -61,7 +61,7 @@ class Calculator {
     this.saveScreen()
   }
 
-  checkAgainstBaseline() {
+  checkAgainstBaseline(result) {
     let imageData
     const methodOptions = {
       actualFolder: path.join(process.cwd(), '.tmp/actual'),
@@ -71,9 +71,18 @@ class Calculator {
 
     imageData = browser.checkScreen('canvas', methodOptions)
 
+    // Only do this check if result is provided
+    if (result) {
+      // If result expected in the step doesn't match calculated result, return -1 to fail test
+      if (Number(result) !== store.calculatedResult) {
+        console.info(`Expected value: "${result}" doesn't match calculated value: "${store.calculatedResult}"`)
+        return -1
+      }
+    }
+
     // The differences of these numbers on the image against baseline image, this was pre-tested and a bit hacky
     // Potentially some numbers may return the same imageData value but there is a diff screenshot for second level validation
-    switch (store.expectedResult) {
+    switch (store.calculatedResult) {
       case -5:
         if(imageData === 0.13) return 0
         break

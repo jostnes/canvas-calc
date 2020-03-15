@@ -12,7 +12,7 @@ exports.config = {
     maxInstances: 5,
     browserName: 'chrome',
     'goog:chromeOptions': {
-      args: ["--disable-gpu", "--disable-browser-side-navigation", "--disable-dev-shm-usage"]
+      args: ['--disable-gpu', '--disable-browser-side-navigation', '--disable-dev-shm-usage']
     },
   }],
   // Level of logging verbosity: trace | debug | info | warn | error | silent
@@ -21,9 +21,9 @@ exports.config = {
   waitforTimeout: 5000,
   connectionRetryTimeout: 90000,
   connectionRetryCount: 1,
-  services: ['chromedriver',         
-  ['image-comparison', 
-  {
+  services: ['chromedriver',   
+    'selenium-standalone',      
+    ['image-comparison', {
       baselineFolder: './image/baseline/desktop_chrome',
       formatImageName: `scenario-{width}x{height}`,
       screenshotPath: join(process.cwd(), '.tmp/'),
@@ -31,7 +31,19 @@ exports.config = {
       autoSaveBaseline: true,
       blockOutStatusBar: true,
       blockOutToolBar: true,
-  }], ],
+    }], 
+  ],
+  seleniumLogs: 'logs',
+  seleniumInstallArgs: {
+    drivers: {
+      chrome: { version: 'latest' }
+    }
+  },
+  seleniumArgs: {
+    drivers: {
+      chrome: { version: 'latest' }
+    }
+  },
   framework: 'cucumber',
   reporters: ['spec'],
   cucumberOpts: {

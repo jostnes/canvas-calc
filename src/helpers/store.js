@@ -1,6 +1,6 @@
 const store = {
   canvas: '',
-  expectedResult: 0
+  calculatedResult: 0
 }
 
 module.exports = { store }

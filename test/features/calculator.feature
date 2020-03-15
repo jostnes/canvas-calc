@@ -1,7 +1,7 @@
 Feature: Calculator
 
   As a canvas noob, I am testing a canvas calculator feature for the first time,
-  noticing more white strands emerging on my head over the course two days.
+  noticing more white strands emerging on my head over the course of two days.
 
 Scenario: Subtracting smaller number from bigger number should return positive value
   Given I launch online calculator site
@@ -35,6 +35,6 @@ Scenario: Dividing the same number should return one
 
 Scenario: Clearing the calculator should reset it
   Given I launch online calculator site
-  And I key in number "5"
-  When I click on "CE" button
+  And I click on number "5"
+  When I click on button "CE"
   Then Calculator should be cleared

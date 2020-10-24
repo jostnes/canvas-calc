@@ -72,7 +72,9 @@ class Calculator {
     imageData = browser.checkScreen('canvas', methodOptions)
 
     // Only do this check if result is provided
-    if (result) {
+    if (result === undefined) {
+      return 0
+    } else if (result) {
       // If result expected in the step doesn't match calculated result, return -1 to fail test
       if (Number(result) !== store.calculatedResult) {
         console.info(`Expected value: "${result}" doesn't match calculated value: "${store.calculatedResult}"`)
@@ -84,19 +86,19 @@ class Calculator {
     // Potentially some numbers may return the same imageData value but there is a diff screenshot for second level validation
     switch (store.calculatedResult) {
       case -5:
-        if(imageData === 0.13) return 0
+        if(imageData === 0.01) return 0
         break
       case 0:
-        if(imageData === 0.08) return 0
+        if(imageData === 0.04) return 0
         break
       case 0.2:
-        if(imageData === 0.18) return 0
+        if(imageData === 0.11) return 0
         break
       case 1:
-        if(imageData === 0.14) return 0
+        if(imageData === 0.05) return 0
         break
       case 5:
-        if(imageData === 0.12) return 0
+        if(imageData === 0.68) return 0
         break
       default:
         break

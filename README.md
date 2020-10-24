@@ -8,8 +8,8 @@ Validation is using image comparison against a baseline image. The baseline imag
 
 ### How can I test this out?
 -----------------------------
-To test this locally: 
-1. Use node v12.16.1
+To test this locally:
+1. Use node v12.19.0
 2. Have Chrome browser installed
 3. From terminal, run `npm install` and `npm test` from the project path
 

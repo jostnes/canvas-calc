@@ -4,12 +4,12 @@ This project contains a set of simple tests testing an online calculator written
 
 Scenarios are listed in [features](test/features/calculator.feature)
 
-Validation is using image comparison against a baseline image. The baseline image is the calculator in its reset state e.g. the state of the calculator when URL is first loaded.
+Validation is performed in the step definitions after driving the calculator with WebdriverIO.
 
 ### How can I test this out?
 -----------------------------
 To test this locally:
-1. Use node v12.19.0
+1. Use node v22
 2. Have Chrome browser installed
 3. From terminal, run `npm install` and `npm test` from the project path
 

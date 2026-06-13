@@ -1,30 +1,29 @@
-const expect = require('chai').expect
-const step = require('cucumber')
-const store = require('../helpers/store').store
+const assert = require('node:assert/strict')
+const step = require('@wdio/cucumber-framework')
 const Calculator = require('../screen/calculator-screen').Calculator
 
 const calculator = new Calculator()
 
-step.Given(/^I launch online calculator site$/, () => {
-  calculator.launchCalculatorApp()
+step.Given(/^I launch online calculator site$/, async () => {
+  await calculator.launchCalculatorApp()
 })
 
-step.When(/^I subtract "(.*)" from "(.*)"$/, (firstNumber, secondNumber) => {
-  calculator.subtract(firstNumber, secondNumber)
+step.When(/^I subtract "(.*)" from "(.*)"$/, async (firstNumber, secondNumber) => {
+  await calculator.subtract(firstNumber, secondNumber)
 })
 
-step.When(/^I divide "(.*)" by "(.*)"$/, (firstNumber, secondNumber) => {
-  calculator.divide(firstNumber, secondNumber)
+step.When(/^I divide "(.*)" by "(.*)"$/, async (firstNumber, secondNumber) => {
+  await calculator.divide(firstNumber, secondNumber)
 })
 
-step.When(/^I click on (button|number) "(.*)"$/, (_valueType, value) => {
-  calculator.pressButton(value)
+step.When(/^I click on (button|number) "(.*)"$/, async (_valueType, value) => {
+  await calculator.pressButton(value)
 })
 
 step.Then(/^Calculator should return "(.*)"$/, (result) => {
-  expect(calculator.checkAgainstBaseline(result), 'Calculator did not return correct result!').to.equal(0)
+  assert.equal(calculator.getResult(), Number(result), 'Calculator did not return correct result!')
 })
 
 step.Then(/^Calculator should be cleared$/, () => {
-  expect(calculator.checkAgainstBaseline(), 'Calculator not cleared!').to.equal(0)
+  assert.equal(calculator.getResult(), 0, 'Calculator not cleared!')
 })
